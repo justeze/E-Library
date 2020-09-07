@@ -1,9 +1,9 @@
 import React from "react";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import "../../assets/css/detail-page.css";
-import {connect} from 'react-redux';
-import {postBorrowBookAPICreator} from "../../redux/actions/borrowBooks";
-import {postHistoryAPICreator} from "../../redux/actions/history";
+import { connect } from 'react-redux';
+import { postBorrowBookAPICreator } from "../../redux/actions/borrowBooks";
+import { postHistoryAPICreator } from "../../redux/actions/history";
 import Axios from 'axios';
 
 class Content extends React.Component {
@@ -20,7 +20,7 @@ class Content extends React.Component {
     };
 
     handleSubmit = (id) => {
-        if(this.props.book.bookDetail.qty > 0) {
+        if (this.props.book.bookDetail.qty > 0) {
             console.log(this.props.book.bookDetail.qty);
             let quantityNew = Number(this.props.book.bookDetail.qty - 1);
             let formData = new FormData();
@@ -48,23 +48,23 @@ class Content extends React.Component {
                     console.log(err);
                 });
         }
-        let monthName = ["January", "February", "March","Apri;", "May","June", "July", "August", "September", "October", "November", "December"];
-        const ex= new Date();
-        const date = ex.getDate()
-        const month = monthName[ex.getMonth()];
+        // let monthName = ["January", "February", "March", "Apri;", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const ex = new Date();
+        const date = ex.getDate();
+        const month = ex.getMonth();
         const year = ex.getFullYear();
-        const full = `${date}-${month}-${year}`
-        let bodyHistory={
-            books_id:id,
-            borrow_date: full,
-            duration:7,
-            users_id:Number(this.props.authAPI.dataLogin.id)
+        const full = `${ date }-${ month } -${ year }`
+        let bodyHistory = {
+            books_id: id,
+            borrow_date: Number(full),
+            duration: 7,
+            users_id: Number(this.props.authAPI.dataLogin.id)
         }
-        let bodyBorrow={
-            books_id:id,
+        let bodyBorrow = {
+            books_id: id,
             borrow_date: full,
-            duration:7,
-            user_id:Number(this.props.authAPI.dataLogin.id)
+            duration: 7,
+            user_id: Number(this.props.authAPI.dataLogin.id)
         }
         this.props.postBorrowAPI(bodyBorrow);
         this.props.postHistoryAPI(bodyHistory)
@@ -109,7 +109,7 @@ class Content extends React.Component {
 };
 
 const mapStateToProps = (state) => {
-    const {book, authAPI} = state;
+    const { book, authAPI } = state;
     return {
         book, authAPI
     };
